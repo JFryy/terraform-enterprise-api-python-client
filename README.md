@@ -30,20 +30,33 @@ Once initialized, you should be able to run various methods for accessing the AP
 of http requests that will simply return the json response content as a string. Here is some example usage that you can combine with the authentication example below:
 
 ```python
-# returns a list of all workspace IDs for a given organization
-client.list_workspace_ids(organization='<org-name>')
+# Creates a workspace
+client.create_workspace(organization='', workspace_name='')
 
-# returns the most current statefile of a given workspace
-client.get_workspace_current_statefile(workspace_id='example')
+# Deletes a workspace
+client.delete_workspace(organization='', workspace_name='')
 
-# run the terraform in a given workspace
-client.run_terraform_workspace(workspace_id='<workspace id>', message='test of api client')
+# Returns the most current statefile of a given workspace
+client.get_workspace_current_statefile(workspace_id='')
 
-# get terraform plan information for a given workspace
-client.get_terraform_plan(plan_id='test_id')
+# Returns a list of all workspace IDs for a given organization
+client.list_workspace_ids(organization='')
+
+# Run the terraform in a given workspace
+client.run_terraform_workspace(workspace_id='', message='')
+
+# Confirm Run of terraform in a given workspace
+client.apply_terraform_run(run_id='')
+
+# Returns Data for non-confirmed runs in a given workspace
+client.get_workspace_non_confirmed_runs(workspace_id='')
+
+# Get terraform plan information for a given workspace
+client.get_terraform_plan(plan_id='')
+
+# Lists workspace data
+client.list_workspaces(organization='')
 
 ```
 
-
-Please read the main code here for more methods to use for the API.
-
+Please consult the module contents for all available methdods.
