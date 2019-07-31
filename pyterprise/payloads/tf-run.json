@@ -1,0 +1,17 @@
+{
+  "data": {
+    "attributes": {
+      "is-destroy":false,
+      "message": ""
+    },
+    "type":"runs",
+    "relationships": {
+      "workspace": {
+        "data": {
+          "type": "workspaces",
+          "id": ""
+        }
+      }
+    }
+  }
+}
