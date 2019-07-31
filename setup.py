@@ -11,7 +11,8 @@ setuptools.setup(
     description="A small client library for the Terraform Enterprise REST API.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Fotherbyy/PyTerprise"
+    url="https://github.com/Fotherbyy/PyTerprise",
+    install_requires=['requests'],
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
