@@ -5,6 +5,12 @@ and likely not all functionality of the API has (or will) be ported over - but m
 
 The methods used are straightforward and relatively self documenting so I won't have too much uses covered here.
 
+#### Installation:
+
+This module is available publicly and can be downloaded simply using pip3:
+
+`pip3 install --user pyterprise`
+
 #### Usage:
 
 First import the module and authenticate using the init method, you can retrieve a token from the terraform enterprise UI.
