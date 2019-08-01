@@ -1,3 +1,7 @@
+from json import load, loads
+import requests
+
+
 class Calls():
     def run_terraform_workspace(self, workspace_id, message):
         url = self.url + 'runs'

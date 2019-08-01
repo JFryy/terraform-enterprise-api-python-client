@@ -2,7 +2,6 @@ import requests
 import os
 import logging as log
 from .pyterprise_exceptions import UnauthorizedError, InternalServerError
-from json import load, loads
 from .uri_methods import Calls
 
 
