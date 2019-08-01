@@ -62,9 +62,13 @@ class Calls():
         return self._tfe_api_get(url)
 
     def get_workspace_current_statefile(self, workspace_id):
-        url = loads(
-            self.get_workspace_current_state_version(workspace_id)
-        )["data"]["attributes"]["hosted-state-download-url"]
+        try:
+            url = loads(
+                self.get_workspace_current_state_version(workspace_id)
+            )["data"]["attributes"]["hosted-state-download-url"]
+        except KeyError:
+            return
+
         return requests.get(url=url).content
 
     def show_workspace(self, organization, workspace_name):

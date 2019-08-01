@@ -7,7 +7,7 @@ from .uri_methods import Calls
 
 class Client(Calls):
     log.basicConfig(
-        level=log.WARN
+        level=log.CRITICAL
     )
 
     def __init__(self):
@@ -39,4 +39,4 @@ class Client(Calls):
             )
 
         if response.status_code not in range(200, 202):
-            log.error('{}: {}'.format(response.url, response.status_code))
+            log.warning('{}: {}'.format(response.url, response.status_code))
