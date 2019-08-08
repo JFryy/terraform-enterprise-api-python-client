@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyterprise",
-    version="0.0.5",
+    version="0.0.8",
     author="James Fotherby",
     author_email="fotherby1@gmail.com",
     description="A small client library for the Terraform Enterprise REST API.",
@@ -14,6 +14,7 @@ setuptools.setup(
     url="https://github.com/Fotherbyy/PyTerprise",
     install_requires=['requests'],
     packages=setuptools.find_packages(),
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

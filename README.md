@@ -1,17 +1,16 @@
-### Pyterprise
+## Pyterprise
 
-This is a small Python client library for Terraform Enterprise with helper functions to abstract usage of the HTTP API - this is a work in progress 
-and likely not all functionality of the API has (or will) be ported over - but most common uses will attempted to be covered here.
+This is a very simple Python Client Library for Terraform Enterprise with helper functions to abstract usage of the HTTP 
+API and handle errors in a normalized fashion. 
+The methods included in this library generally map 1 to 1 in terms of function naming conventions to 
+[terraform enterprise documentation](https://www.terraform.io/docs/cloud/api/), so please review the available methods if you are uncertain on this library's usage.
 
-The methods used are straightforward and relatively self documenting so I won't have too much uses covered here.
-
-#### Installation:
-
-This module is available publicly and can be downloaded simply using pip3:
+### Installation:
+This module can be installed via pip3, this library is compatible and can used be with python2 but is not available through PyPa for 2.7 versions.
 
 `pip3 install --user pyterprise`
 
-#### Usage:
+### Usage:
 
 First import the module and authenticate using the init method, you can retrieve a token from the terraform enterprise UI.
 ```python
@@ -19,44 +18,37 @@ import pyterprise
 
 
 tfe_token = 'TOKENHERE'
-client = pyterprise.TerraformAPI()
+client = pyterprise.Client()
 
 # Supply your token as a parameter and the url for the terraform enterprise server.
-client.init(token=tfe_token, url='Endpoint for TFE')
+client.init(token=tfe_token, url='https://example-host.com')
 ```
 
 
 Once initialized, you should be able to run various methods for accessing the API, most of the methods are basic python implementations 
-of http requests that will simply return the json response content as a string. Here is some example usage that you can combine with the authentication example below:
+of http requests that will simply return the json response content as a string.
 
+Example:
 ```python
-# Creates a workspace
-client.create_workspace(organization='', workspace_name='')
 
-# Deletes a workspace
-client.delete_workspace(organization='', workspace_name='')
+# Get all most recent workspace statefiles to stdout.
+workspaces = client.list_workspace_ids('awesome-organization')
+for workspace in workspaces:
+    print(client.get_workspace_current_statefile(workspace_id=workspace))
 
-# Returns the most current statefile of a given workspace
-client.get_workspace_current_statefile(workspace_id='')
+# Deleting and creating workspaces.
+client.create_workspace(organization='test-org', workspace_name='test-workspace')
+client.delete_workspace(organization='test-org', workspace_name='test-workspace')
 
-# Returns a list of all workspace IDs for a given organization
-client.list_workspace_ids(organization='')
-
-# Run the terraform in a given workspace
-client.run_terraform_workspace(workspace_id='', message='')
-
-# Confirm Run of terraform in a given workspace
-client.apply_terraform_run(run_id='')
-
-# Returns Data for non-confirmed runs in a given workspace
-client.get_workspace_non_confirmed_runs(workspace_id='')
-
-# Get terraform plan information for a given workspace
-client.get_terraform_plan(plan_id='')
-
-# Lists workspace data
-client.list_workspaces(organization='')
-
+# Set a workspace environmental variable in a given workspace id.
+client.create_workspace_variable('test-workspace', key='TF_LOG', value='DEBUG')
 ```
 
-Please consult the module contents for all available methdods.
+Please consult module contents or [terraform enterprise api documentation](https://www.terraform.io/docs/cloud/api/) for
+available methods most should be covered within this module and should have near identical function names compared to 
+the REST documentation.
+
+### Contributions
+Contributions are extremely appreciated! Please feel free to do so to improve this client library. I originally created this library
+because it seemed there weren't any recent community client libraries for Python for the Terraform Enterprise REST API.
+As of writing this I am still actively working on this library to include the remaining API methods and include unit testing.
