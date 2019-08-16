@@ -1,4 +1,3 @@
-from json import load, loads
 import requests
 
 class Runs():
@@ -17,12 +16,25 @@ class Runs():
         self._error_handler(response)
         return response
 
-    def run_terraform_workspace(self, workspace_id, message):
+    def run_terraform_workspace(self, workspace_id, message, destroy=False):
         url = self.url + 'runs'
-        with open(self.payloads_dir + 'tf-run.json') as payload:
-            payload = load(payload)
-            payload["data"]["relationships"]["workspace"]["data"]["id"] = str(workspace_id)
-            payload["data"]["attributes"]["message"] = str(message)
+        payload = {
+            "data": {
+                "attributes": {
+                    "is-destroy": destroy,
+                    "message": message
+                },
+                "type": "runs",
+                "relationships": {
+                    "workspace": {
+                        "data": {
+                            "type": "workspaces",
+                            "id": workspace_id
+                        }
+                    }
+                }
+            }
+        }
 
         response = requests.post(url=url, json=payload, headers=self.headers)
         self._error_handler(response)
