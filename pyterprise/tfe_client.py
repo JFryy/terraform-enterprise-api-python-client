@@ -35,6 +35,8 @@ SOFTWARE.
 Client class which inherits subclasses for different method types as defined in the TFE API Documentation. Set token
 and V2 API URL using the non default 'init' construcutor method.
 """
+
+
 class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
     log.basicConfig(
         level=log.WARNING
@@ -71,4 +73,3 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
 
         if response.status_code not in range(200, 202):
             log.warning('{}: {}'.format(response.url, response.status_code))
-

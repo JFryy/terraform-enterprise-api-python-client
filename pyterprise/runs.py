@@ -1,5 +1,6 @@
 import requests
 
+
 class Runs():
     def apply_terraform_run(self, run_id, message="This action was performed via the rest API."):
         url = self.url + 'runs/{}/actions/apply'.format(run_id)
@@ -64,4 +65,3 @@ class Runs():
         response = requests.post(url, json=payload, headers=self.headers)
         self._error_handler(response)
         return response
-

@@ -1,5 +1,5 @@
 class APIErrors(Exception):
-   pass
+    pass
 
 
 class UnauthorizedError(APIErrors):

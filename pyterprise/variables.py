@@ -1,5 +1,6 @@
 import requests
 
+
 class Variables():
     #TODO: Fallback to updating the workspace if this fails due to pre-existing variable
     def create_workspace_variable(self, workspace_id, key, value, category='terraform', hcl=False, sensitive=False):

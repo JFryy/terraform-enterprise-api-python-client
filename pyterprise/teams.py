@@ -1,5 +1,6 @@
 import requests
 
+
 #TODO: Add team_add_user_method
 class Teams():
     def show_user(self, user_id):

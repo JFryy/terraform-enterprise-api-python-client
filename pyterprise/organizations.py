@@ -1,5 +1,6 @@
 import requests
 
+
 class Organziations():
     def list_organizations(self):
         url = self.url + 'organizations'

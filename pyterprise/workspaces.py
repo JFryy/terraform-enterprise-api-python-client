@@ -53,7 +53,7 @@ class Workspaces():
         return self._tfe_api_get(url)
 
     def update_workspace(self, organization, workspace_name, terraform_version,
-                         vcs_identifier, vcs_branch, ingress_submodules=False):
+                         vcs_identifier, vcs_branch, working_directory, ingress_submodules=False):
         url = self.url + '/organizations/{}/workspaces/{}'\
                   .format(organization, workspace_name)
         payload = {
@@ -61,7 +61,7 @@ class Workspaces():
                 "attributes": {
                     "name": workspace_name,
                     "terraform_version": terraform_version,
-                    "working-directory": "",
+                    "working-directory": working_directory,
                     "vcs-repo": {
                         "identifier": vcs_identifier,
                         "branch": vcs_branch,
