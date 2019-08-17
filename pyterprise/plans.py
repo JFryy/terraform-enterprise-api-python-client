@@ -1,5 +1,4 @@
 import requests
-import json
 
 class Plans():
     def get_terraform_plan(self, plan_id):

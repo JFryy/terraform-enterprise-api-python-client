@@ -1,5 +1,7 @@
 ## Pyterprise
 
+*Disclaimer*: *This Client Library is considered in an 'alpha' state at this time as unit-testing is yet to be implemented*
+
 This is a very simple Python Client Library for Terraform Enterprise with helper functions to abstract usage of the HTTP 
 API and handle errors in a normalized fashion. 
 The methods included in this library generally map 1 to 1 in terms of function naming conventions to 
@@ -47,6 +49,47 @@ client.create_workspace_variable('test-workspace', key='TF_LOG', value='DEBUG')
 Please consult module contents or [terraform enterprise api documentation](https://www.terraform.io/docs/cloud/api/) for
 available methods most should be covered within this module and should have near identical function names compared to 
 the REST documentation.
+
+
+### API Coverage
+
+#### Workspaces
+* list workspaces
+* create workspace
+* delete workspace
+* list workspace ids
+* get workspace non confirmed runs
+* get workspace current statefile
+* show workspace
+* update workspace
+
+#### Runs
+* apply terraform run 
+* force execute run
+* run terraform workspace (destroy option included)
+* get workspace runs
+* discard run
+* cancel runs
+
+#### Teams
+* show user
+* get teams
+* create team
+* show team information
+* delete team
+
+#### Variables
+* create workspace variable
+* list variables
+* delete workspace variable
+
+#### Other
+* get terraform plan
+* list organizations
+* show organization
+* update organization
+* destroy organization
+* create organization
 
 ### Contributions
 Contributions are extremely appreciated! Please feel free to do so to improve this client library. I originally created this library

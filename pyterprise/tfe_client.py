@@ -1,5 +1,4 @@
 import requests
-import os
 import logging as log
 from .pyterprise_exceptions import UnauthorizedError, InternalServerError
 from .organizations import Organziations
@@ -32,15 +31,19 @@ SOFTWARE.
 """
 
 
-#TODO: Refactor Posts and Puts to modify json payloads instead of creating dicts in methods.
-#TODO: Cover remainder of API methods.
+"""
+Client class which inherits subclasses for different method types as defined in the TFE API Documentation. Set token
+and V2 API URL using the non default 'init' construcutor method.
+"""
+
+
 class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
     log.basicConfig(
-        level=log.CRITICAL
+        level=log.WARNING
     )
 
     def __init__(self):
-        self.payloads_dir = os.path.dirname(os.path.realpath(__file__)) + '/payloads/'
+        return
 
     def init(self, token, url):
         self.token = token
@@ -55,6 +58,7 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
         self._error_handler(response)
         return response.content
 
+    """Helper method not to be used publicly for internally handling response status codes and raising errors."""
     def _error_handler(self, response):
         if response.status_code == 401 or response.status_code == 403:
             raise UnauthorizedError(

@@ -1,5 +1,5 @@
 class APIErrors(Exception):
-   pass
+    pass
 
 
 class UnauthorizedError(APIErrors):
@@ -14,11 +14,4 @@ class InternalServerError(APIErrors):
         super(InternalServerError, self).__init__(message)
         self.errors = errors
         print('Internal Server Error. Please verify availability of the service.')
-        pass
-
-class NotFoundError(APIErrors):
-    def __init__(self, message, errors):
-        super(NotFoundError, self).__init__(message)
-        self.errors = errors
-        print('Not Found, 404.')
         pass

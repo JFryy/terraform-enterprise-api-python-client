@@ -1,5 +1,5 @@
 import requests
-import json
+
 
 class Organziations():
     def list_organizations(self):
