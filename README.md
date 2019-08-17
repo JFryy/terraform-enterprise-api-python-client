@@ -51,45 +51,45 @@ available methods most should be covered within this module and should have near
 the REST documentation.
 
 
-### API Coverage
+### API Coverage/Helper Methods
 
-#### Workspaces
-* list workspaces
-* create workspace
-* delete workspace
-* list workspace ids
-* get workspace non confirmed runs
-* get workspace current statefile
-* show workspace
-* update workspace
+##### [Workspaces](https://www.terraform.io/docs/enterprise/api/workspaces.html)
+- [x] list workspaces
+- [x] create workspace
+- [x] delete workspace
+- [x] list workspace ids
+- [x] get workspace non confirmed runs
+- [x] get workspace current statefile
+- [x] show workspace
+- [x] update workspace
 
-#### Runs
-* apply terraform run 
-* force execute run
-* run terraform workspace (destroy option included)
-* get workspace runs
-* discard run
-* cancel runs
+##### [Runs](https://www.terraform.io/docs/enterprise/api/run.html)
+- [x] apply terraform run 
+- [x] force execute run
+- [x] run terraform workspace (destroy option included)
+- [x] get workspace runs
+- [x] discard run
+- [x] cancel runs
 
-#### Teams
-* show user
-* get teams
-* create team
-* show team information
-* delete team
+##### [Teams](https://www.terraform.io/docs/enterprise/api/teams.html)
+- [x] show user
+- [x] get teams
+- [x] create team
+- [x] show team information
+- [x] delete team
 
-#### Variables
-* create workspace variable
-* list variables
-* delete workspace variable
+##### [Variables](https://www.terraform.io/docs/enterprise/api/variables.html)
+- [x] create workspace variable
+- [x] list variables
+- [x] delete workspace variable
 
-#### Other
-* get terraform plan
-* list organizations
-* show organization
-* update organization
-* destroy organization
-* create organization
+##### Other
+- [x] get terraform plan
+- [x] list organizations
+- [x] show organization
+- [x] update organization
+- [x] destroy organization
+- [x] create organization
 
 ### Contributions
 Contributions are extremely appreciated! Please feel free to do so to improve this client library. I originally created this library
