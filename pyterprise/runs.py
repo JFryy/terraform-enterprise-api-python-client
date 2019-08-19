@@ -7,9 +7,7 @@ class Runs():
         payload = {
             "comment": message
         }
-        response = requests.post(url=url, json=payload, headers=self.headers)
-        self._error_handler(response)
-        return response.content
+        return self._post_handler(url=url, json=payload)
 
     def force_execute_run(self, run_id):
         url = self.url + 'runs/{}/actions/force-execute'.format(run_id)
@@ -37,9 +35,7 @@ class Runs():
             }
         }
 
-        response = requests.post(url=url, json=payload, headers=self.headers)
-        self._error_handler(response)
-        return response.content
+        return self._post_handler(url=url, json=payload)
 
     def get_workspace_runs(self, workspace_id):
         url = self.url + 'workspaces/{}/runs'.format(workspace_id)
@@ -50,9 +46,7 @@ class Runs():
         payload = {
             "comment": comment
         }
-        response = requests.post(url, json=payload, headers=self.headers)
-        self._error_handler(response)
-        return response
+        return self._post_handler(url=url, json=payload)
 
     def cancel_run(self, run_id, comment, force_cancel=False):
         cancel = 'cancel'
@@ -62,6 +56,4 @@ class Runs():
         payload = {
             "comment": comment
         }
-        response = requests.post(url, json=payload, headers=self.headers)
-        self._error_handler(response)
-        return response
+        return self._post_handler(url=url, json=payload)

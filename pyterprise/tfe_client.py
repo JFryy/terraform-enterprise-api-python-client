@@ -53,12 +53,26 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
             'Authorization': 'Bearer {}'.format(token)
         }
 
-    def _tfe_api_get(self, url):
+    def _get_handler(self, url):
         response = requests.get(url=url, headers=self.headers)
         self._error_handler(response)
         return response.content
 
-    """Helper method not to be used publicly for internally handling response status codes and raising errors."""
+    def _post_handler(self, url, json):
+        response = requests.post(url=url, headers=self.headers, json=json)
+        self._error_handler(response)
+        return response.content
+
+    def _patch_handler(self, url, json):
+        response = requests.patch(url=url, headers=self.headers, json=json)
+        self._error_handler(response)
+        return response.content
+
+    def _delete_handler(self, url):
+        response = requests.delete(url)
+        self._error_handler(response)
+        return response.content
+
     def _error_handler(self, response):
         if response.status_code == 401 or response.status_code == 403:
             raise UnauthorizedError(
