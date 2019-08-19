@@ -1,17 +1,13 @@
-import requests
-
-
-#TODO: Add team_add_user_method
 class Teams():
     def show_user(self, user_id):
         url = self.url + 'users/{}'.format(user_id)
-        return self._tfe_api_get(url)
+        return self._get_handler(url)
 
     def get_teams(self, organization_name):
         url = self.url + 'organizations/{}/teams'.format(organization_name)
-        return self._tfe_api_get(url)
+        return self._get_handler(url)
 
-    def create_team(self, organization, name):
+    def create_team(self, organization, name, is_managed_workspace=True):
         url = self.url + 'organizations/{}/teams'.format(organization)
         payload = {
             "data": {
@@ -19,21 +15,17 @@ class Teams():
                 "attributes": {
                     "name": name,
                     "organization-access": {
-                        "manage-workspaces": True
+                        "manage-workspaces": is_managed_workspace
                     }
                 }
             }
         }
-        response = requests.post(url=url, json=payload, headers=self.headers)
-        self._error_handler(response)
-        return response.content
+        return self._post_handler(url, json=payload)
 
     def show_team_information(self, team_id):
         url = self.url + 'teams/{}'.format(team_id)
-        return self._tfe_api_get(url)
+        return self._get_handler(url)
 
     def delete_team(self, team_id):
         url = self.url + 'teams/{}'.format(team_id)
-        response = requests.delete(url)
-        self._error_handler(response)
-        return response.content
+        return self._delete_handler(url)

@@ -4,11 +4,11 @@ import requests
 class Organziations():
     def list_organizations(self):
         url = self.url + 'organizations'
-        return self._tfe_api_get(url)
+        return self._get_handler(url)
 
     def show_organization(self, organization):
         url = self.url + 'organizations/{}'.format(organization)
-        return self._tfe_api_get(url)
+        return self._get_handler(url)
 
     def update_organization(self, organization_name, email):
         url = self.url + 'organizations/{}'.format(organization_name)
@@ -21,15 +21,12 @@ class Organziations():
                 }
             }
         }
-        response = requests.patch(url=url, json=payload, headers=self.headers)
-        self._error_handler(response)
-        return response.content
+        return self._patch_handler(url=url, json=payload)
 
     def destroy_organization(self, organization_name):
         url = self.url + 'organizations/{}'.format(organization_name)
-        response = requests.delete(url)
-        self._error_handler(response)
-        return response.content
+        return self._delete_handler(url)
+
 
     def create_organization(self, organization_name, email):
         url = self.url + 'organizations'
@@ -42,6 +39,5 @@ class Organziations():
                 }
             }
         }
-        response = requests.post(url=url, json=payload, headers=self.headers)
-        self._error_handler(response)
-        return response.content
+        return self._post_handler(url=url, json=payload)
+

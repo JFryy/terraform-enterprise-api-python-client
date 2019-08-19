@@ -5,7 +5,7 @@ import requests
 class Workspaces():
     def list_workspaces(self, organization):
         url = self.url + 'organizations/{}/workspaces'.format(organization)
-        return self._tfe_api_get(url)
+        return self._get_handler(url)
 
     def create_workspace(self, organization, workspace_name):
         url = self.url + 'organizations/{}/workspaces'.format(organization)
@@ -17,15 +17,11 @@ class Workspaces():
                 "type": "workspaces"
             }
         }
-        response = requests.post(url=url, json=payload, headers=self.headers)
-        self._error_handler(response)
-        return response.content
+        return self._post_handler(url=url, json=payload)
 
     def delete_workspace(self, organization, workspace_name):
         url = self.url + 'organizations/{}/workspaces/{}'.format(organization, workspace_name)
-        response = requests.delete(url=url)
-        self._error_handler(response)
-        return response.content
+        return self._delete_handler(url)
 
     def list_workspace_ids(self, organization):
         return [str(workspaces["id"]) for workspaces in loads
@@ -37,7 +33,7 @@ class Workspaces():
 
     def get_workspace_current_state_version(self, workspace_id):
         url = self.url + 'workspaces/{}/current-state-version'.format(workspace_id)
-        return self._tfe_api_get(url)
+        return self._get_handler(url)
 
     def get_workspace_current_statefile(self, workspace_id):
         try:
@@ -50,11 +46,11 @@ class Workspaces():
 
     def show_workspace(self, organization, workspace_name):
         url = self.url + 'organizations/{}/workspaces/{}'.format(organization, workspace_name)
-        return self._tfe_api_get(url)
+        return self._get_handler(url)
 
     def update_workspace(self, organization, workspace_name, terraform_version,
-                         vcs_identifier, vcs_branch, working_directory, ingress_submodules=False):
-        url = self.url + '/organizations/{}/workspaces/{}'\
+                         vcs_identifier, vcs_branch, working_directory, oath_token, ingress_submodules=False):
+        url = self.url + 'organizations/{}/workspaces/{}'\
                   .format(organization, workspace_name)
         payload = {
             "data": {
@@ -66,12 +62,12 @@ class Workspaces():
                         "identifier": vcs_identifier,
                         "branch": vcs_branch,
                         "ingress-submodules": ingress_submodules,
-                        "oauth-token-id": self.token
+                        "oauth-token-id": oath_token
                     }
                 },
                 "type": "workspaces"
             }
         }
-        response = requests.patch(url=url, data=payload)
+        response = self._patch_handler(url=url, json=payload)
         self._error_handler(response)
         return response
