@@ -1,7 +1,5 @@
 ## Pyterprise
 
-*Disclaimer*: *This Client Library is considered in an 'alpha' state at this time as unit-testing is yet to be implemented*
-
 This is a very simple Python Client Library for Terraform Enterprise with helper functions to abstract usage of the HTTP 
 API and handle errors in a normalized fashion. 
 The methods included in this library generally map 1 to 1 in terms of function naming conventions to 
@@ -30,7 +28,7 @@ client.init(token=tfe_token, url='https://example-host.com')
 Once initialized, you should be able to run various methods for accessing the API, most of the methods are basic python implementations 
 of http requests that will simply return the json response content as a string.
 
-Example:
+Examples:
 ```python
 
 # Get all most recent workspace statefiles to stdout.
@@ -40,7 +38,8 @@ for workspace in workspaces:
 
 # Create a workspace.
 client.create_workspace(organization='test-org', workspace_name='test-workspace')
-# Update Workspace: Include any params to update, exclude any to not-change.
+
+# Update Workspace: Include any params to update, exclude any to not change.
 update_params = {
     "name": "test-workspace",
     "terraform_version": "0.12.1",
@@ -110,3 +109,5 @@ the REST documentation.
 ### Contributions
 Contributions are extremely appreciated! Please feel free to do so to improve this client library. I created this library
 as at the time there was not a simple python library for performing basic administrative tasks in Terraform Enterprise.
+
+*Disclaimer*: *This Client Library is considered in an 'alpha' state at this time as unit-testing is yet to be implemented. Please use at your own risk*
