@@ -1,5 +1,6 @@
 import requests
 import logging as log
+import json
 from .pyterprise_exceptions import UnauthorizedError, InternalServerError
 from .organizations import Organziations
 from .plans import Plans
@@ -31,13 +32,11 @@ SOFTWARE.
 """
 
 
-"""
-Client class which inherits subclasses for different method types as defined in the TFE API Documentation. Set token
-and V2 API URL using the non default 'init' construcutor method.
-"""
-
-
 class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
+    """
+    Client class which inherits subclasses for different method types as defined in the TFE API Documentation. Set token
+    and V2 API URL using the non default 'init' construcutor method.
+    """
     log.basicConfig(
         level=log.WARNING
     )
@@ -45,14 +44,15 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
     def __init__(self):
         return
 
-    def init(self, token, url):
+    def init(self, token, url, version='v2'):
         self.token = token
-        self.url = url + '/api/v2/'
+        self.url = url + '/api/{}/'.format(version)
         self.headers = {
             'Content-Type': 'application/vnd.api+json',
             'Authorization': 'Bearer {}'.format(token)
         }
 
+    # HTTP helper methods
     def _get_handler(self, url):
         response = requests.get(url=url, headers=self.headers)
         self._error_handler(response)
@@ -73,17 +73,19 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
         self._error_handler(response)
         return response.content
 
-    def _error_handler(self, response):
-        if response.status_code == 401 or response.status_code == 403:
-            raise UnauthorizedError(
-                message=response.content,
-                errors=response.status_code
-            )
-        if response.status_code in range(500, 504):
-            raise InternalServerError(
-                message=response.content,
-                errors=response.status_code
-            )
+    @staticmethod
+    def _error_handler(response):
+            if response.status_code in range(400, 499):
+                raise UnauthorizedError(
+                    message=response.content,
+                    errors=response.status_code
+                )
+            if response.status_code in range(500, 504):
+                raise InternalServerError(
+                    message=response.content,
+                    errors=response.status_code
+                )
 
-        if response.status_code not in range(200, 202):
-            log.warning('{}: {}'.format(response.url, response.status_code))
+            if response.status_code not in range(200, 202):
+                log.warning('{}: {}'.format(response.url, response.status_code))
+

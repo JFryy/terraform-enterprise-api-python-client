@@ -1,7 +1,5 @@
 ## Pyterprise
 
-*Disclaimer*: *This Client Library is considered in an 'alpha' state at this time as unit-testing is yet to be implemented*
-
 This is a very simple Python Client Library for Terraform Enterprise with helper functions to abstract usage of the HTTP 
 API and handle errors in a normalized fashion. 
 The methods included in this library generally map 1 to 1 in terms of function naming conventions to 
@@ -30,7 +28,7 @@ client.init(token=tfe_token, url='https://example-host.com')
 Once initialized, you should be able to run various methods for accessing the API, most of the methods are basic python implementations 
 of http requests that will simply return the json response content as a string.
 
-Example:
+Examples:
 ```python
 
 # Get all most recent workspace statefiles to stdout.
@@ -38,12 +36,29 @@ workspaces = client.list_workspace_ids('awesome-organization')
 for workspace in workspaces:
     print(client.get_workspace_current_statefile(workspace_id=workspace))
 
-# Deleting and creating workspaces.
+# Create a workspace.
 client.create_workspace(organization='test-org', workspace_name='test-workspace')
-client.delete_workspace(organization='test-org', workspace_name='test-workspace')
+
+# Update Workspace: Include any params to update, exclude any to not change.
+update_params = {
+    "name": "test-workspace",
+    "terraform_version": "0.12.1",
+    "working-directory": "test/awesome-directory",
+    "vcs-repo": {
+        "identifier": "github/Terraform-Testing",
+        "branch": "test",
+        "ingress-submodules": False,
+        "oauth-token-id": "ot-XXXXXXXXX"
+        }
+    }
+client.update_workspace(organization='test-org', update_params=update_params)
+
 
 # Set a workspace environmental variable in a given workspace id.
 client.create_workspace_variable('test-workspace', key='TF_LOG', value='DEBUG')
+
+# Remove the created and modified workspace.
+client.delete_workspace(organization='test-org', workspace_name='test-workspace')
 ```
 
 Please consult module contents or [terraform enterprise api documentation](https://www.terraform.io/docs/cloud/api/) for
@@ -92,6 +107,7 @@ the REST documentation.
 - [x] create organization
 
 ### Contributions
-Contributions are extremely appreciated! Please feel free to do so to improve this client library. I originally created this library
-because it seemed there weren't any recent community client libraries for Python for the Terraform Enterprise REST API.
-As of writing this I am still actively working on this library to include the remaining API methods and include unit testing.
+Contributions are extremely appreciated! Please feel free to do so to improve this client library. I created this library
+as at the time there was not a simple python library for performing basic administrative tasks in Terraform Enterprise.
+
+*Disclaimer*: *This Client Library is considered in an 'alpha' state at this time as unit-testing is yet to be implemented. Please use at your own risk*

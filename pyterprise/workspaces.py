@@ -48,26 +48,27 @@ class Workspaces():
         url = self.url + 'organizations/{}/workspaces/{}'.format(organization, workspace_name)
         return self._get_handler(url)
 
-    def update_workspace(self, organization, workspace_name, terraform_version,
-                         vcs_identifier, vcs_branch, working_directory, oath_token, ingress_submodules=False):
-        url = self.url + 'organizations/{}/workspaces/{}'\
-                  .format(organization, workspace_name)
+    def update_workspace(self, update_params, organization):
+        """
+        :param organization: Organization of workspace
+        :param update_params: Parameters to update, omit fields to not alter them. i.e.
+        {
+        "name": "test-workspace",
+        "terraform_version": "0.12.1",
+        "working-directory": "test/awesome-directory",
+        "vcs-repo": {
+            "identifier": "github/Terraform-Testing",
+            "branch": "test",
+            "ingress-submodules": False,
+            "oauth-token-id": "ot-XXXXXXXXX"
+            }
+        }
+        """
+        url = self.url + 'organizations/{}/workspaces/{}'.format(organization, update_params["name"])
         payload = {
             "data": {
-                "attributes": {
-                    "name": workspace_name,
-                    "terraform_version": terraform_version,
-                    "working-directory": working_directory,
-                    "vcs-repo": {
-                        "identifier": vcs_identifier,
-                        "branch": vcs_branch,
-                        "ingress-submodules": ingress_submodules,
-                        "oauth-token-id": oath_token
-                    }
-                },
+                "attributes": update_params,
                 "type": "workspaces"
             }
         }
-        response = self._patch_handler(url=url, json=payload)
-        self._error_handler(response)
-        return response
+        return self._patch_handler(url=url, json=payload)
