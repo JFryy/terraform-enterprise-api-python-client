@@ -49,6 +49,21 @@ class Workspaces():
         return self._get_handler(url)
 
     def update_workspace(self, update_params, organization):
+        """
+        :param organization: Organization of workspace
+        :param update_params: Parameters to update, omit fields to not alter them. i.e.
+        {
+        "name": "test-workspace",
+        "terraform_version": "0.12.1",
+        "working-directory": "test/awesome-directory",
+        "vcs-repo": {
+            "identifier": "github/Terraform-Testing",
+            "branch": "test",
+            "ingress-submodules": False,
+            "oauth-token-id": "ot-XXXXXXXXX"
+            }
+        }
+        """
         url = self.url + 'organizations/{}/workspaces/{}'.format(organization, update_params["name"])
         payload = {
             "data": {

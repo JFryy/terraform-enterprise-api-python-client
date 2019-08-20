@@ -32,11 +32,11 @@ SOFTWARE.
 """
 
 
-"""
-Client class which inherits subclasses for different method types as defined in the TFE API Documentation. Set token
-and V2 API URL using the non default 'init' construcutor method.
-"""
 class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
+    """
+    Client class which inherits subclasses for different method types as defined in the TFE API Documentation. Set token
+    and V2 API URL using the non default 'init' construcutor method.
+    """
     log.basicConfig(
         level=log.WARNING
     )
@@ -44,14 +44,15 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
     def __init__(self):
         return
 
-    def init(self, token, url):
+    def init(self, token, url, version='v2'):
         self.token = token
-        self.url = url + '/api/v2/'
+        self.url = url + '/api/{}/'.format(version)
         self.headers = {
             'Content-Type': 'application/vnd.api+json',
             'Authorization': 'Bearer {}'.format(token)
         }
 
+    # HTTP helper methods
     def _get_handler(self, url):
         response = requests.get(url=url, headers=self.headers)
         self._error_handler(response)

@@ -23,9 +23,17 @@ class Teams():
         return self._post_handler(url, json=payload)
 
     def show_team_information(self, team_id):
+        """
+        Returns information on a given team id.
+        :param team_id: String of team ID.
+        """
         url = self.url + 'teams/{}'.format(team_id)
         return self._get_handler(url)
 
     def delete_team(self, team_id):
+        """
+        Removes a given team from Terraform Enterprise
+        :param team_id: String of team ID.
+        """
         url = self.url + 'teams/{}'.format(team_id)
         return self._delete_handler(url)
