@@ -8,6 +8,8 @@ from .teams import Teams
 from .runs import Runs
 from .variables import Variables
 from .workspaces import Workspaces
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 """
 Copyright (c) 2018 The Python Packaging Authority
@@ -54,22 +56,22 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
 
     # HTTP helper methods
     def _get_handler(self, url):
-        response = requests.get(url=url, headers=self.headers)
+        response = requests.get(url=url, verify=False, headers=self.headers)
         self._error_handler(response)
         return response.content
 
     def _post_handler(self, url, json):
-        response = requests.post(url=url, headers=self.headers, json=json)
+        response = requests.post(url=url, verify=False, headers=self.headers, json=json)
         self._error_handler(response)
         return response.content
 
     def _patch_handler(self, url, json):
-        response = requests.patch(url=url, headers=self.headers, json=json)
+        response = requests.patch(url=url, verify=False, headers=self.headers, json=json)
         self._error_handler(response)
         return response.content
 
     def _delete_handler(self, url):
-        response = requests.delete(url)
+        response = requests.delete(url,verify=False)
         self._error_handler(response)
         return response.content
 
