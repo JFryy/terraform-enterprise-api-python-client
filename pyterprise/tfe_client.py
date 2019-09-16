@@ -46,7 +46,7 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
     def __init__(self):
         return
 
-    def init(self, token, url, version='v2', ssl_verification=True):):
+    def init(self, token, url, ssl_verification=True, version='v2'):
         self.token = token
         self.url = url + '/api/{}/'.format(version)
         self.headers = {
