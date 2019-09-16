@@ -46,32 +46,34 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
     def __init__(self):
         return
 
-    def init(self, token, url, version='v2'):
+    def init(self, token, url, version='v2', ssl_verification=True):):
         self.token = token
         self.url = url + '/api/{}/'.format(version)
         self.headers = {
             'Content-Type': 'application/vnd.api+json',
             'Authorization': 'Bearer {}'.format(token)
         }
+        
+        self.ssl_verification = ssl_verification
 
     # HTTP helper methods
     def _get_handler(self, url):
-        response = requests.get(url=url, verify=False, headers=self.headers)
+        response = requests.get(url=url, verify=self.ssl_verification, headers=self.headers)
         self._error_handler(response)
         return response.content
 
     def _post_handler(self, url, json):
-        response = requests.post(url=url, verify=False, headers=self.headers, json=json)
+        response = requests.post(url=url, verify=self.ssl_verification, headers=self.headers, json=json)
         self._error_handler(response)
         return response.content
 
     def _patch_handler(self, url, json):
-        response = requests.patch(url=url, verify=False, headers=self.headers, json=json)
+        response = requests.patch(url=url, verify=self.ssl_verification, headers=self.headers, json=json)
         self._error_handler(response)
         return response.content
 
     def _delete_handler(self, url):
-        response = requests.delete(url,verify=False)
+        response = requests.delete(url, verify=self.ssl_verification)
         self._error_handler(response)
         return response.content
 
