@@ -8,6 +8,8 @@ from .teams import Teams
 from .runs import Runs
 from .variables import Variables
 from .workspaces import Workspaces
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 """
 Copyright (c) 2018 The Python Packaging Authority
@@ -44,32 +46,34 @@ class Client(Organziations, Plans, Teams, Runs, Variables, Workspaces):
     def __init__(self):
         return
 
-    def init(self, token, url, version='v2'):
+    def init(self, token, url, ssl_verification=True, version='v2'):
         self.token = token
         self.url = url + '/api/{}/'.format(version)
         self.headers = {
             'Content-Type': 'application/vnd.api+json',
             'Authorization': 'Bearer {}'.format(token)
         }
+        
+        self.ssl_verification = ssl_verification
 
     # HTTP helper methods
     def _get_handler(self, url):
-        response = requests.get(url=url, headers=self.headers)
+        response = requests.get(url=url, verify=self.ssl_verification, headers=self.headers)
         self._error_handler(response)
         return response.content
 
     def _post_handler(self, url, json):
-        response = requests.post(url=url, headers=self.headers, json=json)
+        response = requests.post(url=url, verify=self.ssl_verification, headers=self.headers, json=json)
         self._error_handler(response)
         return response.content
 
     def _patch_handler(self, url, json):
-        response = requests.patch(url=url, headers=self.headers, json=json)
+        response = requests.patch(url=url, verify=self.ssl_verification, headers=self.headers, json=json)
         self._error_handler(response)
         return response.content
 
     def _delete_handler(self, url):
-        response = requests.delete(url)
+        response = requests.delete(url, verify=self.ssl_verification)
         self._error_handler(response)
         return response.content
 
