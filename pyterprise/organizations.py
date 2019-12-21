@@ -16,7 +16,7 @@ class Organziations():
             "data": {
                 "type": "organizations",
                 "attributes": {
-                    "name": "hashicorp",
+                    "name": organization_name,
                     "email": email
                 }
             }
@@ -32,9 +32,9 @@ class Organziations():
         url = self.url + 'organizations'
         payload = {
             "data": {
-                "type": organization_name,
+                "type": "organizations",
                 "attributes": {
-                    "name": "hashicorp",
+                    "name": organization_name,
                     "email": email
                 }
             }
