@@ -9,13 +9,14 @@ Happy Terraforming!
 
 
 ### Installation:
-This module can be installed via pip, this library is compatible with `python3.7`. Install it with pip for python3
+This module can be installed via pip, this library is compatible with `python3.7`. Install it with pip for python3.
 
 `pip3 install --user pyterprise`
 
 ### Usage:
 
-*Note: Some examples are covered here, but more are covered in the `/examples` directory for more basic use-cases of this api.*
+*Note: Some examples are covered here, but more are covered in the 
+[examples directory for more basic use-cases of this api.](https://github.com/JFryy/terraform-enterprise-api-python-client/tree/master/examples)*
 
 First import the module and authenticate using the init method, you can retrieve a token from the terraform enterprise UI.
 ```python
@@ -30,14 +31,22 @@ client.init(token=tfe_token, url='https://example-host.com')
 ```
 
 
-After instantiating your client you need to set an organization to access workspaces and more:
+After instantiating your client you need to set an organization to access workspaces and more. 
+From the client base-level you can also create/destroy/list organizations:
+
 ```python
 # Set the organization
 org = client.set_organization(id='my-organization')
+
+# Base level Methods:
+#organizations = client.list_organizations()
+#client.destroy_organization(name='my-safe-to-delete-org')
+#client.create_organization(name='test', email='test@test.com')
+
 ```
 
 
-This organization object has access to workspace, ssh keys and other methods (Check source code/examples for more):
+This organization object `org` has access to workspaces, ssh keys and other methods (Check source code/examples for more):
 ```python
 # Creating a workspace with VCS example:
 vcs_options = {
@@ -58,9 +67,11 @@ org.delete_workspace(name='my-safe-to-delete-test-workspace')
 ```
 
 
-Accessing workspaces through your organization client object:
+You can access workspace objects through your organization client object, 
+which gives you access to runs, plans, statefiles, ssh-key additions and variables.
 ```python
-# Get a single workspace client object, you can also list all workspace objects
+# Get a single workspace client object, 
+# you can also list or search all workspace objects using the corresponding methods.
 workspace = org.get_workspace('test-workspace')
 
 # Get a list of all workspace objects in an organization.
@@ -85,14 +96,14 @@ workspace.create_variable(key='foo', value='bar', sensitive=False, category='env
 for variable in workspace.list_variables():
     print(variable)
     
-# Print all runs, there are methods for canceling, applying 
-# run and more in the returned run objects.
+# Print all runs, there are methods for canceling, applying,
+# discarding and more in the returned run objects.
 for run in workspace.list_runs():
     print(run)
 ```
 
-
-Please consult module contents, examples or [terraform enterprise api documentation](https://www.terraform.io/docs/cloud/api/)
+Please consult module contents, [examples](https://github.com/JFryy/terraform-enterprise-api-python-client/tree/master/examples) 
+or [terraform enterprise api documentation](https://www.terraform.io/docs/cloud/api/)
 for more api client usage. This API does not currently cover administrative functions and teams, 
 help is wanted for expanding functionality. Thank you.
 
