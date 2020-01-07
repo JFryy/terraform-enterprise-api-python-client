@@ -9,9 +9,9 @@ Happy Terraforming!
 
 
 ### Installation:
-This module can be installed via pip, this library is compatible with `python3.7`.
+This module can be installed via pip, this library is compatible with `python3.7`. Install it with pip for python3
 
-`pip install --user pyterprise`
+`pip3 install --user pyterprise`
 
 ### Usage:
 
