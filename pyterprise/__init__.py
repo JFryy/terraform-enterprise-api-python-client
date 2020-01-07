@@ -1,1 +1,1 @@
-from .tfe_client import Client
+from .client import Client
