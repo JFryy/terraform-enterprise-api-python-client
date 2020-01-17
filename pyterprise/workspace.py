@@ -247,9 +247,10 @@ class Workspace(object):
         run = self._api_handler.call(uri=f'/runs/{run_id}').data
         return Run(run=object_helper(run), api_handler=self._api_handler)
 
-    def list_runs(self):
+    def list_runs(self, page=1, page_size=100):
+        params = {"page[size]": page_size, "page[number]": page}
         runs = []
-        response = self._api_handler.call(uri=f'workspaces/{self.id}/runs').data
+        response = self._api_handler.call(uri=f'workspaces/{self.id}/runs', params=params).data
         for run in response:
             runs.append(
                 Run(run=object_helper(run), api_handler=self._api_handler))

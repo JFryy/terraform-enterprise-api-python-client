@@ -20,7 +20,10 @@ run = workspace.run(destroy_flag=False)
 # Get terraform plan output of run.
 print(run.get_plan_output())
 
+# If plan output looks ok in run lets apply it
+print(run.apply('Plan output look OK.'))
+
 # List general run data, you can apply, cancel and perform other methods on specific runs with the instantiated run object.
-for run in workspace.list_runs():
+for run in workspace.list_runs(page=1, page_size=100):
     print(run)
     print(run.id, run.status, run.status_timestamps)

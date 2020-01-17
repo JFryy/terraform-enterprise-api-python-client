@@ -88,6 +88,9 @@ workspace.run(destroy_flag=False)
 # Plan and Apply in workspace with log output
 workspace.plan_apply(destroy_flag=False)
 
+# Update workspace, arguments identical to create function. Omit arguments to not alter.
+workspace.update(auto_apply=True)
+
 # Create a variable in a workspace
 workspace.create_variable(key='foo', value='bar', sensitive=False, category='env')
 
@@ -96,10 +99,12 @@ workspace.create_variable(key='foo', value='bar', sensitive=False, category='env
 for variable in workspace.list_variables():
     print(variable)
     
-# Print all runs, there are methods for canceling, applying,
-# discarding and more in the returned run objects.
-for run in workspace.list_runs():
-    print(run)
+
+# Apply latest unconfirmed plan in workspace. You can additionally print all attributes by print object at top level.
+# or use other runs methods i.e. cancel, discard and get plan output etc.
+for run in workspace.list_runs(page=1, page_size=20):
+    if run.status == 'planned':
+        run.apply(comment='Running latest plan.')
 ```
 
 Please consult module contents, [examples](https://github.com/JFryy/terraform-enterprise-api-python-client/tree/master/examples) 
