@@ -16,9 +16,10 @@ vcs_options = {
     "branch": "master",
     "default-branch": False
 }
-print(org.create_workspace(name='test-delete-me2',
-                           vcs_repo=vcs_options,
-                           auto_apply=False,
-                           queue_all_runs=False,
-                           working_directory='/',
-                           trigger_prefixes=['modules/']))
+print(
+    org.create_workspace(name='test-delete-me2',
+                         vcs_repo=vcs_options,
+                         auto_apply=False,
+                         queue_all_runs=False,
+                         working_directory='/',
+                         trigger_prefixes=['modules/']))

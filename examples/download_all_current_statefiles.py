@@ -14,5 +14,6 @@ for workspace in workspaces:
     # Skip Workspaces with no statefiles.
     if not workspace.get_current_state_version():
         continue
-    download_url = workspace.get_current_state_version().attributes.hosted_state_download_url
+    download_url = workspace.get_current_state_version(
+    ).attributes.hosted_state_download_url
     print(download_url)

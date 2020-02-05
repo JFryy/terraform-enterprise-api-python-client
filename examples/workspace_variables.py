@@ -11,7 +11,11 @@ org = client.set_organization(id='my-organization-name')
 workspace = org.get_workspace(name='test')
 
 # Create a variable
-print(workspace.create_variable(key='foo', value='bar', sensitive=False, category='env'))
+print(
+    workspace.create_variable(key='foo',
+                              value='bar',
+                              sensitive=False,
+                              category='env'))
 
 # Get variables for a workspace
 variables = workspace.list_variables()
@@ -20,7 +24,6 @@ variables = workspace.list_variables()
 for variable in variables:
     if variable.key == 'foo':
         print(variable.update(value='baz'))
-
 
 # Delete the variable we created.
 for variable in variables:
