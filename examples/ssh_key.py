@@ -19,4 +19,3 @@ workspace.assign_ssh_key(ssh_key_id=ssh_key.id)
 # List SSH Keys in organization, get method is also available if you know the id.
 for ssh_key in org.list_ssh_keys():
     print(ssh_key)
-

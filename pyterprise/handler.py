@@ -4,7 +4,8 @@ from .exceptions import APIException
 
 
 class APICaller(object):
-    def __init__(self,base_url, headers):
+
+    def __init__(self, base_url, headers):
         self._base_url = base_url
         self._headers = headers
 
@@ -22,10 +23,13 @@ class APICaller(object):
             elif method == "delete":
                 return response.status_code
         else:
-            raise APIException(f"Error: {response.status_code}: {response.content}, {url}", response)
+            raise APIException(
+                f"Error: {response.status_code}: {response.content}, {url}",
+                response)
 
 
 class APIResponse(object):
+
     def __init__(self, response):
         self.data = response.get("data", [])
         self.meta = response.get("meta", [])

@@ -68,4 +68,3 @@ class Client():
     def destroy_organization(self, name):
         return self._api_handler.call(method='delete',
                                       uri=f"organizations/{name}")
-

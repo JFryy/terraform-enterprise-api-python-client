@@ -10,7 +10,6 @@ client.init(token=tfe_token, url='https://example-host.com')
 org = client.set_organization(id='my-organization-name')
 workspace = org.get_workspace('my-test-workspace')
 
-
 # Create and apply a run in a workspace without auto-apply settings. Logs terraform plan/apply output in console.
 workspace.plan_apply(message='just testing.', destroy_flag=False)
 
