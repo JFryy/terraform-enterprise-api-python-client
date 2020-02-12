@@ -17,14 +17,12 @@ class Organization(object):
         self.session_timeout = organization.session_timeout
         self.session_remember = organization.session_remember
         self.collaborator_auth_policy = organization.collaborator_auth_policy
-        self.enterprise_plan = organization.enterprise_plan
         self.plan_expired = organization.plan_expired
         self.cost_estimation_enabled = organization.cost_estimation_enabled
         self.permissions = organization.permissions
         self.fair_run_queuing_enabled = organization.fair_run_queuing_enabled
         self.saml_enabled = organization.saml_enabled
         self.two_factor_conformant = organization.two_factor_conformant
-        self.preview_request = organization.preview_request
 
     def __str__(self):
         return str(self.__dict__)
