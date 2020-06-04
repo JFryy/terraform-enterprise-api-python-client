@@ -5,14 +5,16 @@ from .exceptions import APIException
 
 class APICaller(object):
 
-    def __init__(self, base_url, headers):
+    def __init__(self, base_url, cert, headers):
         self._base_url = base_url
+        self.cert = cert
         self._headers = headers
 
     def call(self, uri, method="get", *args, **kwargs):
         requester = getattr(requests, method.lower())
         url = self._base_url + uri
-        response = requester(url=url, headers=self._headers, *args, **kwargs)
+        cert = self.cert
+        response = requester(url=url, verify=cert, headers=self._headers, *args, **kwargs)
         if response.status_code < 400:
             if method in ["get", "post", "patch", "put"]:
                 response_json = response.json()

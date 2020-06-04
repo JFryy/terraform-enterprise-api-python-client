@@ -12,7 +12,7 @@ class Client():
     def __init__(self):
         return
 
-    def init(self, token, url, ssl_verification=True, version='v2'):
+    def init(self, token, url, cert, ssl_verification=True, version='v2'):
         self.token = token
         self.url = url + f'/api/{version}/'
         self.headers = {
@@ -20,7 +20,8 @@ class Client():
             'Authorization': f'Bearer {token}'
         }
         self.ssl_verification = ssl_verification
-        self._api_handler = APICaller(base_url=self.url, headers=self.headers)
+        self.cert = cert
+        self._api_handler = APICaller(base_url=self.url, cert=self.cert, headers=self.headers)
 
     def list_organizations(self):
         """ Returns list of instantiated class objects for workspaces. """
