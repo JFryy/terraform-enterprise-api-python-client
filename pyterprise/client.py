@@ -21,7 +21,7 @@ class Client():
         }
         self.ssl_verification = ssl_verification
         if 'cert' in kwargs:
-           self.cert = cert
+           self.cert = kwargs.get('cert')
            self._api_handler = APICaller(base_url=self.url, cert=self.cert, headers=self.headers)
         else:
            self._api_handler = APICaller(base_url=self.url, headers=self.headers)

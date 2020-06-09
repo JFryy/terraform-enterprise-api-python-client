@@ -9,7 +9,7 @@ class APICaller(object):
         self._base_url = base_url
         self._headers = headers
         if 'cert' in kwargs:
-           self.cert = cert
+           self.cert = kwargs.get('cert') 
 
 
     def call(self, uri, method="get", *args, **kwargs):
