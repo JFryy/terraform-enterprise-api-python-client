@@ -1,4 +1,4 @@
-[![Downloads](https://pepy.tech/badge/pyterprise)](https://pepy.tech/project/pyterprise)
+[![Downloads](https://pepy.tech/badge/pyterprise)](https://pepy.tech/project/pyterprise) [![PyPI version](https://badge.fury.io/py/pyterprise.svg)](https://badge.fury.io/py/pyterprise)
 ## Pyterprise
 
 This is an object oriented client API for Terraform Enterprise written in Python.
