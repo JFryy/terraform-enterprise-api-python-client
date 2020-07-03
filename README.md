@@ -1,5 +1,5 @@
 ## Pyterprise
-
+[![PyPI version](https://badge.fury.io/py/terrasnek.svg)](https://badge.fury.io/py/terrasnek)
 This is an object oriented client API for Terraform Enterprise written in Python.
 The methods included in this library generally map 1 to 1 in terms of function naming conventions to 
 [terraform enterprise documentation](https://www.terraform.io/docs/cloud/api/), so please review the available methods 
