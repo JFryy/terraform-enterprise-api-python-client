@@ -6,8 +6,8 @@ The methods included in this library generally map 1 to 1 in terms of function n
 [terraform enterprise documentation](https://www.terraform.io/docs/cloud/api/), so please review the available methods 
 if you are uncertain on this library's usage.
 
-I am not currently maintaining this client library, please feel free to use this if you find it useful, however if certain endpoints you need aren't covered here, or if upstream changes break any functionality, I heavily suggest using the officially maintained go library for
-tfe or [terrasnek](https://github.com/dahlke/terrasnek), which is actively maintained to a higher standard of quality than I have the bandwith to provide.
+Although this client library is maintained to a degree, I am not actively improving it. Please feel free to use this if it meets your needs, however if certain endpoints you need aren't covered here, or if upstream changes break any functionality, I *heavily* suggest using the officially maintained go library for
+tfe by Hashicorp or an alternative python library [terrasnek](https://github.com/dahlke/terrasnek) which is actively maintained to a higher standard of quality than I have the bandwith to provide.
 
 Happy Terraforming!
 
