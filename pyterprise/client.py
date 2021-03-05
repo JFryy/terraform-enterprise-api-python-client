@@ -73,7 +73,7 @@ class Client():
         return self._api_handler.call(method='delete',
                                       uri=f"organizations/{name}")
 
-    def get_configuration(self, id):
+    def get_configuration_version(self, id):
         """ Returns a specific configuration version. """
         response = self._api_handler.call(uri=f'configuration-versions/{id}')
         return ConfigurationVersion(configuration=object_helper(response.data),
