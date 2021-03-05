@@ -1,7 +1,7 @@
 from .handler import APICaller
 from ._api_response_object import object_helper
 from .organization import Organization
-
+from .configuration_version import ConfigurationVersion
 
 class Client():
     """
@@ -72,3 +72,9 @@ class Client():
     def destroy_organization(self, name):
         return self._api_handler.call(method='delete',
                                       uri=f"organizations/{name}")
+
+    def get_configuration(self, id):
+        """ Returns a specific configuration version. """
+        response = self._api_handler.call(uri=f'configuration-versions/{id}')
+        return ConfigurationVersion(configuration=object_helper(response.data),
+                            api_handler=self._api_handler)
