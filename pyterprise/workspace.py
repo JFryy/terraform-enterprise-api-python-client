@@ -256,3 +256,20 @@ class Workspace(object):
             runs.append(
                 Run(run=object_helper(run), api_handler=self._api_handler))
         return runs
+
+    def configuration_versions(self):
+        versions = self._api_handler.call(uri=f'workspaces/{self.id}/configuration-versions').data
+        return versions
+
+    def create_configuration_version(self, auto_queue_runs=True, speculative=False):
+        payload = {
+            "data": {
+                "type": "vars",
+                "attributes": {
+                    "auto-queue-runs": auto_queue_runs,
+                    "speculative": speculative,
+                }
+            }
+        }
+        return self._api_handler.call(uri=f'workspaces/{self.id}/configuration-versions', method='post',
+                                      json=payload).data
