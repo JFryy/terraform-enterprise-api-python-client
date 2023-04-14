@@ -120,7 +120,7 @@ class Workspace(object):
             'working_directory': self.working_directory,
             'auto_apply': self.auto_apply,
             'queue_all_runs': self.queue_all_runs,
-            'vcs_repo': self.vcs_repo,
+            'vcs_repo': self.vcs_repo.d if self.vcs_repo else None,
             'trigger_prefixes': self.trigger_prefixes
         }
 
