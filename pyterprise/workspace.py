@@ -105,14 +105,7 @@ class Workspace(object):
             uri=f'organizations/{self.organization_name}/workspaces/{self.name}'
         )
 
-    def update(self,
-               name=None,
-               tf_version=None,
-               working_directory=None,
-               auto_apply=None,
-               queue_all_runs=None,
-               vcs_repo=None,
-               trigger_prefixes=None):
+    def update(self, **kwargs):
         """ Updates workspace. Uses instantiated defaults to populate payload with non-supplied values. """
         defaults = {
             'name': self.name,
@@ -124,12 +117,9 @@ class Workspace(object):
             'trigger_prefixes': self.trigger_prefixes
         }
 
-        arguments = locals()
-        del arguments['self']
-
-        for arg, value in arguments.items():
-            if value != None:
-                defaults[arg] = value
+        for arg, value in defaults.items():
+            if arg in kwargs:
+                defaults[arg] = kwargs[arg]
         payload = {
             "data": {
                 "attributes": {
